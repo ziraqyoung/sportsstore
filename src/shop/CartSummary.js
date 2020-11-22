@@ -16,8 +16,8 @@ export class CartSummary extends Component {
 
   getLinkClasses = () => {
     return `btn btn-sm bg-dark text-white ${
-      ( this.props.cartItems === 0 || this.props.cartItems === undefined ) ? "disabled" : ""
-    }`
+      !this.props.cartItems || this.props.cartItems === 0 ? "disabled" : ""
+    }`;
   };
 
   render() {

@@ -9,15 +9,21 @@ import {
   removeFromCart,
   updateCartQuantity,
 } from "../data/CartActionCreators";
+
 import { DataTypes } from "../data/Types";
 import Shop from "./Shop";
+import { CartDetails } from "./CartDetails";
 
 const mapStateToProps = (dataStore) => ({
   ...dataStore,
 });
 
 const mapDispatchToProps = {
-  loadData, addToCart, updateCartQuantity, removeFromCart, clearCart
+  loadData,
+  addToCart,
+  updateCartQuantity,
+  removeFromCart,
+  clearCart,
 };
 
 const filterProducts = (products = [], category) =>
@@ -46,6 +52,12 @@ export const ShopConnector = connect(
                   routeProps.match.params.category
                 )}
               />
+            )}
+          />
+          <Route
+            path="/shop/cart"
+            render={(routeProps) => (
+              <CartDetails {...this.props} {...routeProps} />
             )}
           />
           <Redirect to="/shop/products" />
