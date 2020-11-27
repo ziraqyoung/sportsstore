@@ -3,7 +3,13 @@ import Axios from "axios";
 import { RestUrl } from "./Urls";
 
 export class RestDataSource {
-  GetData = async (dataType, params) => this.SendRequest("get", RestUrl[dataType], params);
+  constructor(err_handler) {
+    this.err_handler = err_handler || ( () => {} )
+  }
 
-  SendRequest = (method, url, params) => Axios.request({ method, url, params });
+  GetData = (dataType, params) => this.SendRequest("get", RestUrl[dataType], params);
+
+  StoreData = (dataType, data) => this.SendRequest('post', RestUrl[dataType], {}, data)
+
+  SendRequest = (method, url, params, data) => Axios.request({ method, url, params, data });
 }
