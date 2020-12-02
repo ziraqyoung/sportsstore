@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 
 import { SportsStoreDataStore } from "./data/DataStore";
 import { ShopConnector } from "./shop/ShopConnector";
+import { Admin } from "./admin/Admin";
 
 export default class App extends Component {
   render() {
@@ -12,6 +13,7 @@ export default class App extends Component {
         <Router>
           <Switch>
             <Route path="/shop" component={ShopConnector} />
+            <Route path="/admin" component={Admin} />
             <Redirect to="/shop" />
           </Switch>
         </Router>
