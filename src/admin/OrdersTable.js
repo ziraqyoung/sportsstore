@@ -8,9 +8,7 @@ export class OrdersTable extends Component {
       <h4 className="bg-info text-white text-center p-2">
         {this.props.totalSize} orders
       </h4>
-
       <PaginationControls keys={["ID", "Name"]} {...this.props} />
-
       <table className="table table-sm table-striped">
         <thead>
           <tr>
@@ -20,7 +18,6 @@ export class OrdersTable extends Component {
             <th className="text-center">Shipped</th>
           </tr>
         </thead>
-
         <tbody>
           { this.props.orders.map(order => 
           <OrdersRow
