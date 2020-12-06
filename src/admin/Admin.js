@@ -16,7 +16,7 @@ import { authWrapper } from "../auth/AuthWrapper";
 // uri: GraphQLUrl,
 // });
 
-export const Admin = authWrapper(
+export default authWrapper(
   class Admin extends Component {
     constructor(props) {
       super(props);

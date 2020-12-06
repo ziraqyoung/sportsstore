@@ -4,14 +4,15 @@ const chokidar = require("chokidar");
 const cors = require("cors");
 const fs = require("fs");
 const { buildSchema } = require("graphql");
-const { graphqlHTTP } = require('express-graphql');
+const { graphqlHTTP } = require("express-graphql");
+const history = require("connect-history-api-fallback");
 
 const queryResolvers = require("./serverQueriesResolver");
 const mutationResolvers = require("./serverMutationsResolver");
 
 const fileName = process.argv[2] || "./data.js";
 const port = process.argv[3] || 3500;
-const auth = require('./authMiddleware');
+const auth = require("./authMiddleware");
 
 let router = undefined;
 let graph = undefined;
@@ -41,9 +42,11 @@ const createServer = () => {
 
 createServer();
 
+app.use(history());
+app.use("/", express.static("./build"));
 app.use(cors());
 app.use(jsonServer.bodyParser);
-app.use(auth)
+app.use(auth);
 app.use("/api", (req, resp, next) => router(req, resp, next));
 app.use("/graphql", (req, resp, next) => graph(req, resp, next));
 

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, lazy, Suspense } from "react";
 import { Provider } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -9,8 +9,9 @@ import {
 
 import { SportsStoreDataStore } from "./data/DataStore";
 import { ShopConnector } from "./shop/ShopConnector";
-import { Admin } from "./admin/Admin";
 import { AuthProviderImpl } from "./auth/AuthProviderImpl";
+
+const Admin = lazy(() => import("./admin/Admin"));
 
 export default class App extends Component {
   render() {
@@ -20,7 +21,14 @@ export default class App extends Component {
           <Router>
             <Switch>
               <Route path="/shop" component={ShopConnector} />
-              <Route path="/admin" component={Admin} />
+              <Route
+                path="/admin"
+                render={(routeProps) => (
+                  <Suspense fallback={<h3>Loading...</h3>}>
+                    <Admin {...routeProps} />
+                  </Suspense>
+                )}
+              />
               <Redirect to="/shop" />
             </Switch>
           </Router>
